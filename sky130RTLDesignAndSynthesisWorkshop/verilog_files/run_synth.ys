@@ -10,7 +10,7 @@ hierarchy -check -top ldpc_decoder_layer
 # Run the synthesis targeting the baseline decoder
 synth -top ldpc_decoder_layer
 
-# Map flip-flops and logic to Sky130
+# Map flipflops and logic to Sky130
 dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
