@@ -1,15 +1,7 @@
-// =============================================================
-// Testbench for LDPC_modified_fixed.vh  (Verilog-2001)
-// Compile: iverilog -g2001 -o sim LDPC_modified_fixed.vh LDPC_tb_fixed.v
-// Run    : vvp sim
-// =============================================================
 `timescale 1ns/1ps
 
 module LDPC_tb;
 
-    // ---------------------------------------------------------
-    // Clock / reset
-    // ---------------------------------------------------------
     reg clk, reset;
     initial clk = 0;
     always #5 clk = ~clk;
@@ -201,10 +193,6 @@ module LDPC_tb;
 
     reg [DEC_Z-1:0] exp_allzero;
     reg [DEC_Z-1:0] exp_allone;
-
-    // =========================================================
-    // Stimulus
-    // =========================================================
     integer i, fail_cnt;
     integer mag_abs;
 
@@ -532,10 +520,6 @@ module LDPC_tb;
         end
 
         $display("  TEST 7 done.\n");
-
-        // =====================================================
-        // Summary
-        // =====================================================
         $display("============================================");
         $display(" Testbench complete.  FAIL count = %0d", fail_cnt);
         $display("============================================\n");
