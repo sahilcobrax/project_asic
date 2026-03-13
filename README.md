@@ -13,6 +13,8 @@ This repository contains the RTL design, verification, and physical synthesis fl
 The ultimate goal of this project is to transition from algorithmic specification to a physical GDSII layout, implementing specific architectural optimizations to significantly reduce the silicon area consumption required for 5G New Radio (NR) baseband processing.
 
 ---
+### Detailed Report
+A full PDF report named "VLS822MidProgressEvaluation.pdf" covering the paper specifications, hardware architecture diagrams, GTKWave simulation proofs, and gate-level synthesis is available in the repository.
 
 ## Midterm Evaluation: Baseline Implementation
 For the midterm phase, we have successfully developed, simulated, and synthesized the **unoptimized baseline architecture** of the LDPC decoder to establish a verified functional datapath.
