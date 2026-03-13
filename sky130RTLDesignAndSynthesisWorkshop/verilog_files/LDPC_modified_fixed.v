@@ -1,40 +1,3 @@
-// =============================================================
-// Modified LDPC Decoder – Verilog-2001 Compatible Version
-// All unpacked array ports replaced with flat packed buses.
-// All invalid negative literals fixed.
-// ldpc_merged_controller port mismatch fixed.
-//
-// FIXES APPLIED (VLS822 Evaluation):
-//
-// [Bug Fix 1 – CNU Instantiation]
-//   Removed incorrect VTC→CTV passthrough in ldpc_decoder_layer.
-//   cn_update_iams is now properly instantiated for each variable
-//   node in the row. VTC messages enter the CNU; CTV messages exit.
-//
-// [Bug Fix 2 – Yosys Synthesis Target]
-//   The correct Yosys synthesis command is:
-//     read_verilog LDPC_modified_fixed.v
-//     synth -top ldpc_decoder_layer    <-- use this, NOT ldpc_top_controller
-//     write_verilog synth_output.v
-//   Previously "synth -top ldpc_top_controller" produced only 22 cells
-//   because it only synthesized the layer-merging controller wrapper.
-//   ldpc_decoder_layer is the true top-level baseline decoder.
-//
-// [Strategy Note – Optimised Modules]
-//   Modules split_storage_unit, selective_shift_network, and
-//   ldpc_top_controller are PLACEHOLDER / ROADMAP modules for the
-//   Endterm optimisation phase. They are NOT active in the current
-//   baseline datapath rooted at ldpc_decoder_layer.
-//   For Thursday's evaluation: present ldpc_decoder_layer as the
-//   complete baseline implementation per the assigned paper, and
-//   call out the above modules explicitly as future-work extensions.
-// =============================================================
-
-// -------------------------------------------------------------
-// HELPER: flattens ROW_DEGREE × (Q-1) magnitudes into one bus
-//   flat index: mag[i] = bus[ i*(Q-1) +: (Q-1) ]
-// -------------------------------------------------------------
-
 // 1. LAYER MERGING LOGIC
 module ldpc_top_controller #(
     parameter L_COUNT    = 42,
@@ -427,15 +390,6 @@ module ldpc_decoder_layer #(
             );
         end
     endgenerate
-
-    // ----------------------------------------------------------------
-    // FIX (Bug 1): Check Node Update (CNU) via cn_update_iams
-    // Previously this was a broken passthrough:
-    //   assign ctv_messages[g] = vtc_messages[g];   // <-- REMOVED
-    // The CNU must receive VTC messages and produce CTV messages.
-    // We build the flat magnitude bus and sign bus for all ROW_DEGREE
-    // VTCs, then instantiate one cn_update_iams per variable node.
-    // ----------------------------------------------------------------
 
     // Pack VTC messages into flat magnitude and sign buses for CNU input
     wire [ROW_DEGREE*(Q-1)-1:0] vtc_mags_flat;
