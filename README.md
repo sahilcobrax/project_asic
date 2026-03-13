@@ -15,6 +15,7 @@ The ultimate goal of this project is to transition from algorithmic specificatio
 ---
 ### Detailed Report
 A full PDF report named "VLS822MidProgressEvaluation.pdf" covering the paper specifications, hardware architecture diagrams, GTKWave simulation proofs, and gate-level synthesis is available in the repository.
+**Hardware Demonstration:** Go to Midterm_Screenshots to view the full GTKWave waveform simulation and system execution video
 
 ## Midterm Evaluation: Baseline Implementation
 For the midterm phase, we have successfully developed, simulated, and synthesized the **unoptimized baseline architecture** of the LDPC decoder to establish a verified functional datapath.
