@@ -1,0 +1,22 @@
+# Read standard cell library
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Read the fixed Verilog design
+read_verilog LDPC_modified_fixed.v
+
+# FORCE Yosys to set the hierarchy to the baseline decoder
+hierarchy -check -top ldpc_decoder_layer
+
+# Run the synthesis targeting the baseline decoder
+synth -top ldpc_decoder_layer
+
+# Map flip-flops and logic to Sky130
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# Clean up the design
+clean
+
+# Output the schematic diagram and netlist
+show -prefix ldpc_baseline_schematic -format png
+write_verilog -noattr ldpc_baseline_netlist.v
